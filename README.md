@@ -1,2 +1,3 @@
-# train-of-thought-fe
+# Train of Thought Frontend
+
 Train of Tought Frontend Application
