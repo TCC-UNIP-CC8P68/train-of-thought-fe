@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/node,react,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,react,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/yeoman,node,react,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=yeoman,node,react,visualstudiocode
 
 ### Node ###
 # Logs
@@ -154,4 +154,9 @@ sketch
 .history
 .ionide
 
-# End of https://www.toptal.com/developers/gitignore/api/node,react,visualstudiocode
+### Yeoman ###
+bower_components/
+
+build/
+
+# End of https://www.toptal.com/developers/gitignore/api/yeoman,node,react,visualstudiocode
