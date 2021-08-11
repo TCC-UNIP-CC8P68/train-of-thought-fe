@@ -27,5 +27,5 @@ jobs:
       working-directory: ./train-of-thought
       run: |
         sudo pwd
-        sudo ls
+        sudo ls -lha
         sudo ./build.sh
