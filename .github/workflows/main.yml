@@ -26,5 +26,4 @@ jobs:
     - name: Build
       working-directory: ./train-of-thought
       run: |
-        sudo chmod +x ./build.sh
-        sudo ./build.sh
+        npm run build
