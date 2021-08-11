@@ -26,4 +26,6 @@ jobs:
     - name: Build
       working-directory: ./train-of-thought
       run: |
+        sudo pwd
+        sudo ls
         sudo ./build.sh
