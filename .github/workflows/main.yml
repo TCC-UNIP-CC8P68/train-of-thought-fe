@@ -23,7 +23,5 @@ jobs:
     - name: Install dependencies
       run: npm install
       
-    - name: GitHub Script
-      uses: actions/github-script@v4.0.2
-      with:
-        script: ../../train-of-thought/build.sh
+    - name: Build
+      run: ../../train-of-thought/build.sh
