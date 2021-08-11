@@ -25,4 +25,6 @@ jobs:
       
     - name: Build
       working-directory: ./train-of-thought
-      run: build.sh
+      run: |
+        chmod +x ./build.sh
+        ./build.sh
