@@ -25,6 +25,7 @@ jobs:
       run: npm install
       
     - name: Build
+      working-directory: ./train-of-thought
       run: |
         sudo chmod +x ./build.sh
         npm run build
