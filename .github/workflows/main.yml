@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI
 
 on: push
 
@@ -7,25 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: ./train-of-thought
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: Install dependencies
-      run: npm install
-      
-    - name: Build
-      working-directory: ./train-of-thought
-      run: |
-        sudo chmod +x ./build.sh
-        npm run build
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install dependencies
+        run: npm install
+      - name: Generate build
+        run: npm run build
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v1
+        with:
+          name: react-github-actions-build
+          path: build
