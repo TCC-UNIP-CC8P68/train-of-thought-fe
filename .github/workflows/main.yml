@@ -14,12 +14,10 @@ jobs:
           node-version: 12.x
       - name: Install dependencies
         run: npm install
-        env:
-          working-directory: ./train-of-thought
+        working-directory: ./train-of-thought
       - name: Generate build
         run: npm run build
-        env:
-          working-directory: ./train-of-thought
+        working-directory: ./train-of-thought
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
         with:
