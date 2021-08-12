@@ -25,4 +25,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: react-github-actions-build
-          path: build
+          path: ./train-of-thought/dist
