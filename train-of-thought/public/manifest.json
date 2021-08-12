@@ -1,6 +1,6 @@
 {
   "short_name": "React App",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Train of Thought",
   "version": "0.0.2",
   "browser_action": {
@@ -8,5 +8,11 @@
     "default_popup": "popup.html",
     "default_title": "Train of Thought for Chrome"
   },
-  "content_security_policy": "script-src 'self' https://example.com; object-src 'self'"
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
 }
