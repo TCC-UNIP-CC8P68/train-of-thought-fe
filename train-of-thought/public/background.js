@@ -1,4 +1,4 @@
-var myTimeOut;
+var analysisTimeout;
 
 chrome.tabs.onActivated.addListener(activeInfo => makeAnalysis());
 
@@ -8,24 +8,22 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   }
 });
 
-function makeAnalysis(){
-  clearTimeout(myTimeOut);
-  
-  var url;
+function makeAnalysis(timeoutValue = 5000){
+  clearTimeout(analysisTimeout);
 
-  myTimeOut = setTimeout(function(){
-    getCurrentTab().then(v => {
-      url = v;
-      
-      console.log("Starting analysis: " + url);
+  analysisTimeout = setTimeout(function(){
+    getCurrentTab().then(tab => {   
+      if(tab) {
+        console.log("Url capturada: " + tab.url);
+      }
     });
-  },5000);
+  },timeoutValue);
 }
 
 async function getCurrentTab() {
   let queryOptions = { active: true, currentWindow: true };
   let [tab] = await chrome.tabs.query(queryOptions);
-  return(tab.url);
+  return tab;
 }
 
 
