@@ -2,6 +2,8 @@
 
 Extensão para navegador Chrome que visa ajudar a manter o foco e a "linha de raciocínio" (train of thought, em inglês).
 
+Essa extensão faz parte de um projeto de TCC.
+
 ## Build Local
 
 Para fazer o build local, siga os seguintes passos (apenas Linux): 
