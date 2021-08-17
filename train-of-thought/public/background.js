@@ -1,4 +1,5 @@
-var analysisTimeout;
+let analysisTimeout;
+let timeoutValue = 5000;
 
 chrome.tabs.onActivated.addListener(activeInfo => makeAnalysis());
 
@@ -8,13 +9,14 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   }
 });
 
-function makeAnalysis(timeoutValue = 5000){
+function makeAnalysis(){
   clearTimeout(analysisTimeout);
 
   analysisTimeout = setTimeout(function(){
-    getCurrentTab().then(tab => {   
+    getCurrentTab().then(tab => {
       if(tab) {
         console.log("Url capturada: " + tab.url);
+        console.log('Timeout ' + timeoutValue);
       }
     });
   },timeoutValue);
@@ -26,4 +28,10 @@ async function getCurrentTab() {
   return tab;
 }
 
-
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+      timeoutValue = request;
+      console.log('valor do timeout ' + timeoutValue);
+      sendResponse('Xampson');
+    }
+);

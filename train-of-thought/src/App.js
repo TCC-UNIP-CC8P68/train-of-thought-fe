@@ -8,11 +8,19 @@ function App() {
 
   useEffect(() => {
       const queryInfo = {active: true, lastFocusedWindow: true};
-      
+
       chrome.tabs && chrome.tabs.query(queryInfo, tabs => {
           const url = tabs[0].url;
           setUrl(url);
       });
+
+      chrome.runtime.sendMessage(
+        1000,
+        function (response) {
+            console.log(response);
+        }
+      );
+
   }, []);
 
   return (
@@ -26,5 +34,4 @@ function App() {
         </div>
   );
 }
-
 export default App;
