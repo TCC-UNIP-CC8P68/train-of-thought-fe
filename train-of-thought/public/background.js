@@ -29,9 +29,8 @@ async function getCurrentTab() {
 }
 
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-      timeoutValue = request*1000;
-      console.log('valor do timeout ' + timeoutValue);
-      sendResponse('Xampson');
-    }
+  function(request) {
+    timeoutValue = request[1]*1000;
+    console.log('valor do timeout ' + timeoutValue + " definido via: " + request[0]);
+  }
 );
