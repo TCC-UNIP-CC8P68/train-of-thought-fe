@@ -1,5 +1,7 @@
 # TRAIN OF THOUGHT FRONTEND
 
+Extensão para navegador Chrome que visa ajudar a manter o foco e a "linha de raciocínio" (train of thought, em inglês).
+
 ## Build Local
 
 Para fazer o build local, siga os seguintes passos (apenas Linux): 
