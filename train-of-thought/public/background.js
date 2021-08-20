@@ -23,6 +23,15 @@ function makeAnalysis(){
 }
 
 async function getCurrentTab() {
+  fetch('http://localhost:8084/captures', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({a: 1, capturedUrl: 'Textual content'})
+  })
+
   let queryOptions = { active: true, currentWindow: true };
   let [tab] = await chrome.tabs.query(queryOptions);
   return tab;
