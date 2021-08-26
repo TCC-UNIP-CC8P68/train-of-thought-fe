@@ -14,23 +14,29 @@ function makeAnalysis(){
 
   analysisTimeout = setTimeout(function(){
     getCurrentTab().then(tab => {
+      let date = new Date();
+      let momentOfCapture = date.getTime();
+      console.log(momentOfCapture);
       if(tab) {
         console.log("URL Capturada: " + tab.url);
         console.log('Timeout: ' + timeoutValue);
-        postCapturedUrl(tab.url);
+        postCapturedUrl(tab.url, momentOfCapture);
       }
     });
   },timeoutValue);
 }
 
-async function postCapturedUrl(capturedUrl) {
+async function postCapturedUrl(capturedUrl, momentOfCapture) {
   fetch('http://localhost:8084/capture', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ "capturedUrl": capturedUrl })
+    body: JSON.stringify({ 
+      "capturedUrl": capturedUrl,
+      "momentOfCapture": momentOfCapture
+    })
   }),
   fetch('http://localhost:8084/capture', {
     method: 'get',
