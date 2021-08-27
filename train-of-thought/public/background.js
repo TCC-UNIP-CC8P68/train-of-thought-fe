@@ -63,9 +63,8 @@ async function getCurrentTab() {
 chrome.runtime.onMessage.addListener(
   function(request) {
     setBy = request[0];
-    timeoutValue = request[1];
+    timeoutValue = request[1]*1000;
     postConfiguration(setBy, timeoutValue);
-    timeoutValue *= 1000;
 
     console.log('Valor do timeout definido para: ' + timeoutValue + " ms definido via: " + request[0]);
   }
