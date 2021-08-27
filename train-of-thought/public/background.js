@@ -37,14 +37,21 @@ async function postCapturedUrl(capturedUrl, momentOfCapture) {
       "capturedUrl": capturedUrl,
       "momentOfCapture": momentOfCapture
     })
-  }),
-  fetch('http://localhost:8084/capture', {
-    method: 'get',
+  });
+}
+
+async function postConfiguration(setBy, timeoutValue) {
+  fetch('http://localhost:8084/configuration', {
+    method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
-    }
-  })
+    },
+    body: JSON.stringify({ 
+      "setBy": setBy,
+      "timeoutValue": timeoutValue
+    })
+  });
 }
 
 async function getCurrentTab() {
@@ -55,7 +62,11 @@ async function getCurrentTab() {
 
 chrome.runtime.onMessage.addListener(
   function(request) {
-    timeoutValue = request[1]*1000;
+    setBy = request[0];
+    timeoutValue = request[1];
+    postConfiguration(setBy, timeoutValue);
+    timeoutValue *= 1000;
+
     console.log('Valor do timeout definido para: ' + timeoutValue + " ms definido via: " + request[0]);
   }
 );
