@@ -1,5 +1,22 @@
 let analysisTimeout;
-let timeoutValue = 5000;
+let timeoutValue=5000;
+
+async function getConfiguration(userId) {
+  fetch('http://localhost:8084/configuration?userId='+userId, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then(response => response.json())    // one extra step
+  .then(data => {
+    timeoutValue = data.timeoutValue;
+    console.log(timeoutValue); 
+  })
+  .catch(error => console.error(error));  
+}
+
+getConfiguration(1);
 
 chrome.tabs.onActivated.addListener(activeInfo => makeAnalysis());
 
@@ -41,9 +58,9 @@ async function postCapturedUrl(userId, capturedUrl, momentOfCapture) {
   });
 }
 
-async function postConfiguration(userId, setBy, timeoutValue) {
-  fetch('http://localhost:8084/configuration', {
-    method: 'POST',
+async function putConfiguration(userId, setBy, timeoutValue) {
+  fetch('http://localhost:8084/configuration?userId='+userId, {
+    method: 'PUT',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -66,7 +83,7 @@ chrome.runtime.onMessage.addListener(
   function(request) {
     setBy = request[0];
     timeoutValue = request[1]*1000;
-    postConfiguration(1, setBy, timeoutValue);
+    putConfiguration(1, setBy, timeoutValue);
 
     console.log('Valor do timeout definido para: ' + timeoutValue + " ms definido via: " + request[0]);
   }
