@@ -1,21 +1,6 @@
 let analysisTimeout;
 let timeoutValue=5000;
 
-async function getConfiguration(userId) {
-  fetch('http://localhost:8084/configuration?userId='+userId, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  }).then(response => response.json())    // one extra step
-  .then(data => {
-    timeoutValue = data.timeoutValue;
-    console.log(timeoutValue); 
-  })
-  .catch(error => console.error(error));  
-}
-
 getConfiguration(1);
 
 chrome.tabs.onActivated.addListener(activeInfo => makeAnalysis());
@@ -26,21 +11,39 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   }
 });
 
+chrome.runtime.onMessage.addListener(
+  function(request) {
+    setBy = request[0];
+    timeoutValue = request[1]*1000;
+    putConfiguration(1, setBy, timeoutValue);
+
+    console.log('Valor do timeout definido para: ' + timeoutValue + " ms definido via: " + request[0]);
+  }
+);
+
 function makeAnalysis(){
   clearTimeout(analysisTimeout);
 
   analysisTimeout = setTimeout(function(){
+    urlExceptions = verifyUrlException(1, tab.url)
     getCurrentTab().then(tab => {
       let date = new Date();
       let momentOfCapture = date.getTime();
-      console.log(momentOfCapture);
       if(tab) {
-        console.log("URL Capturada: " + tab.url);
-        console.log('Timeout: ' + timeoutValue);
-        postCapturedUrl(1, tab.url, momentOfCapture);
+        if(urlExceptions.count == 0){
+          console.log("URL Capturada: " + tab.url);
+          console.log('Timeout: ' + timeoutValue);
+          postCapturedUrl(1, tab.url, momentOfCapture);
+        }
       }
     });
   },timeoutValue);
+}
+
+async function getCurrentTab() {
+  let queryOptions = { active: true, currentWindow: true };
+  let [tab] = await chrome.tabs.query(queryOptions);
+  return tab;
 }
 
 async function postCapturedUrl(userId, capturedUrl, momentOfCapture) {
@@ -73,18 +76,45 @@ async function putConfiguration(userId, setBy, timeoutValue) {
   });
 }
 
-async function getCurrentTab() {
-  let queryOptions = { active: true, currentWindow: true };
-  let [tab] = await chrome.tabs.query(queryOptions);
-  return tab;
+async function getConfiguration(userId) {
+  fetch('http://localhost:8084/configuration?userId='+userId, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then(response => response.json())    // one extra step
+  .then(data => {
+    if(data != null){timeoutValue = data.timeoutValue;}    
+  })
+  .catch(error => console.error(error));  
 }
 
-chrome.runtime.onMessage.addListener(
-  function(request) {
-    setBy = request[0];
-    timeoutValue = request[1]*1000;
-    putConfiguration(1, setBy, timeoutValue);
+async function getUrlException(userId) {
+  fetch('http://localhost:8084/urlexception?userId='+userId, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then(response => response.json())    // one extra step
+  .then(data => {
+    return data;
+  })
+  .catch(error => console.error(error));  
+}
 
-    console.log('Valor do timeout definido para: ' + timeoutValue + " ms definido via: " + request[0]);
-  }
-);
+async function verifyUrlException(userId, url) {
+  fetch('http://localhost:8084/verifyurlexception?userId='+userId+'&url='+url, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then(response => response.json())    // one extra step
+  .then(data => {
+    return data;
+  })
+  .catch(error => console.error(error));  
+}
+
