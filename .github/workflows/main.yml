@@ -14,15 +14,15 @@ jobs:
           node-version: 12.x
       - name: Install dependencies
         run: npm install
-        working-directory: ./train-of-thought
+        working-directory: ./src
       - name: CHMOD build
         run: sudo chmod +x ./build.sh
-        working-directory: ./train-of-thought
+        working-directory: ./src
       - name: Generate build
         run: npm run build
-        working-directory: ./train-of-thought
+        working-directory: ./src
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
         with:
           name: react-github-actions-build
-          path: ./train-of-thought/dist
+          path: ./src/dist
