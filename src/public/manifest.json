@@ -11,6 +11,8 @@
   "permissions": [
     "activeTab",
     "tabs",
+    "identity",
+    "identity.email",
     "storage"
   ],
   "background": {

@@ -1,6 +1,7 @@
 let analysisTimeout;
 let timeoutValue=5000;
 
+getChromeUser()
 getConfiguration(1);
 
 chrome.tabs.onActivated.addListener(activeInfo => makeAnalysis());
@@ -101,6 +102,12 @@ function syncGetConfig() {
   chrome.storage.sync.get(['key'], function(result) {
     console.log('Value currently is ' + result.key);
   });
+}
+
+function getChromeUser() {
+  chrome.identity.getProfileUserInfo(function(userInfo) {
+    console.log(userInfo.email)
+   });
 }
 
 async function getUrlException(userId) {
