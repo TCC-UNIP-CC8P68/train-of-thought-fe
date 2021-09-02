@@ -82,9 +82,25 @@ async function getConfiguration(userId) {
     }
   }).then(response => response.json())    // one extra step
   .then(data => {
-    if(data != null){timeoutValue = data.timeoutValue;}    
+    if(data != null){timeoutValue = data.timeoutValue;}
+    let asd = JSON.stringify(data);
+    syncSetConfig("configs", asd);
+    syncGetConfig();
+   
   })
   .catch(error => console.error(error));  
+}
+
+function syncSetConfig(key, value) {
+  chrome.storage.sync.set({key: value}, function() {
+    console.log(key + ' is set to ' + value);
+  });
+}
+
+function syncGetConfig() {
+  chrome.storage.sync.get(['key'], function(result) {
+    console.log('Value currently is ' + result.key);
+  });
 }
 
 async function getUrlException(userId) {
@@ -114,4 +130,3 @@ async function verifyUrlException(userId, url) {
   })
   .catch(error => console.error(error));  
 }
-
