@@ -1,8 +1,9 @@
 let analysisTimeout;
 let timeoutValue=5000;
 
-getChromeUser()
-getConfiguration(1);
+getChromeUserConfig()
+
+//syncGetConfig()
 
 chrome.tabs.onActivated.addListener(activeInfo => makeAnalysis());
 
@@ -59,6 +60,21 @@ async function postCapturedUrl(userId, capturedUrl, momentOfCapture) {
   });
 }
 
+async function postConfiguration(userId, setBy, timeoutValue) {
+  fetch('http://localhost:8084/configuration?email='+email, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "email": email, 
+      "setBy": setBy,
+      "timeoutValue": timeoutValue
+    })
+  });
+}
+
 async function putConfiguration(userId, setBy, timeoutValue) {
   fetch('http://localhost:8084/configuration?userId='+userId, {
     method: 'PUT',
@@ -74,8 +90,8 @@ async function putConfiguration(userId, setBy, timeoutValue) {
   });
 }
 
-async function getConfiguration(userId) {
-  fetch('http://localhost:8084/configuration?userId='+userId, {
+async function getConfiguration(email) {
+  fetch('http://localhost:8085/configuration?email='+email, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -85,7 +101,7 @@ async function getConfiguration(userId) {
   .then(data => {
     if(data != null){timeoutValue = data.timeoutValue;}
     let asd = JSON.stringify(data);
-    syncSetConfig("configs", asd);
+    //syncSetConfig("configs", asd);
     syncGetConfig();
    
   })
@@ -100,14 +116,25 @@ function syncSetConfig(key, value) {
 
 function syncGetConfig() {
   chrome.storage.sync.get(['key'], function(result) {
-    console.log('Value currently is ' + result.key);
+    let key = JSON.parse(result.key)
+    timeoutValue = key[0].asd;
+    return timeoutValue;
   });
 }
 
-function getChromeUser() {
-  chrome.identity.getProfileUserInfo(function(userInfo) {
-    console.log(userInfo.email)
-   });
+function getChromeUserConfig() {
+  chrome.identity.getProfileUserInfo(function(info) { 
+    let email = info.email;
+
+    timeoutValue = syncGetConfig();
+    if (timeoutValue) {
+      let userDBConfig = getConfiguration(email);
+      if (userDBConfig == "{}") {
+        postConfiguration(email, "chrome", timeoutValue);
+      }
+      
+    }
+  });
 }
 
 async function getUrlException(userId) {
