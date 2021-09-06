@@ -46,7 +46,7 @@ async function getCurrentTab() {
 }
 
 async function postCapturedUrl(userId, capturedUrl, momentOfCapture) {
-  fetch('http://localhost:8084/capture', {
+  fetch('http://localhost:8085/capture', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -61,7 +61,7 @@ async function postCapturedUrl(userId, capturedUrl, momentOfCapture) {
 }
 
 async function postConfiguration(userId, setBy, timeoutValue) {
-  fetch('http://localhost:8084/configuration?email='+email, {
+  fetch('http://localhost:8085/configuration?email='+email, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -75,15 +75,15 @@ async function postConfiguration(userId, setBy, timeoutValue) {
   });
 }
 
-async function putConfiguration(userId, setBy, timeoutValue) {
-  fetch('http://localhost:8084/configuration?userId='+userId, {
+async function putConfiguration(email, setBy, timeoutValue) {
+  fetch('http://localhost:8085/configuration?email='+email, {
     method: 'PUT',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      "userId": userId, 
+      "email": email, 
       "setBy": setBy,
       "timeoutValue": timeoutValue
     })
@@ -100,9 +100,8 @@ async function getConfiguration(email) {
   }).then(response => response.json())    // one extra step
   .then(data => {
     if(data != null){timeoutValue = data.timeoutValue;}
-    let asd = JSON.stringify(data);
-    //syncSetConfig("configs", asd);
-    syncGetConfig();
+    let configs = JSON.stringify(data[0])
+    //syncSetConfig("configs", configs);
    
   })
   .catch(error => console.error(error));  
@@ -114,31 +113,49 @@ function syncSetConfig(key, value) {
   });
 }
 
-function syncGetConfig() {
-  chrome.storage.sync.get(['key'], function(result) {
-    let key = JSON.parse(result.key)
-    timeoutValue = key[0].asd;
-    return timeoutValue;
+async function syncGetConfig() {
+  return new Promise((resolve, reject) => {
+    try {
+      chrome.storage.sync.get(['key'], function(result) {
+        let key = JSON.parse(result.key)
+        timeoutValue = key.timeoutValue;
+        resolve(timeoutValue);
+      })
+    }
+    catch (ex) {
+        reject(ex);
+    }
   });
 }
 
-function getChromeUserConfig() {
+async function getChromeUserConfig() {
+  timeoutValue = await syncGetConfig();
   chrome.identity.getProfileUserInfo(function(info) { 
     let email = info.email;
+    console.log(email)
 
-    timeoutValue = syncGetConfig();
+    console.log(timeoutValue)
+    let userDBConfig = getConfiguration(email);
+    //se pegar valor do chrome, verifica se tem valor no banco
     if (timeoutValue) {
-      let userDBConfig = getConfiguration(email);
+      console.log("a")
+      // se nao tiver valor no banco, add
       if (userDBConfig == "{}") {
+        console.log("a1")
         postConfiguration(email, "chrome", timeoutValue);
+        //se tiver valor, atualiza
+      } else {
+        console.log("a2")
+        putConfiguration(email, "chrome", timeoutValue);
       }
-      
+    } else {
+      console.log("b")
     }
   });
 }
 
 async function getUrlException(userId) {
-  fetch('http://localhost:8084/urlexception?userId='+userId, {
+  fetch('http://localhost:8085/urlexception?userId='+userId, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -152,7 +169,7 @@ async function getUrlException(userId) {
 }
 
 async function verifyUrlException(userId, url) {
-  fetch('http://localhost:8084/verifyurlexception?userId='+userId+'&url='+url, {
+  fetch('http://localhost:8085/verifyurlexception?userId='+userId+'&url='+url, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
