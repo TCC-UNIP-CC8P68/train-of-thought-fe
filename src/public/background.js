@@ -3,7 +3,7 @@ let timeoutValue=5000;
 
 getChromeUserConfig()
 
-//syncGetConfig()
+//getSyncConfig()
 
 chrome.tabs.onActivated.addListener(activeInfo => makeAnalysis());
 
@@ -101,6 +101,7 @@ async function getConfiguration(email) {
         }
       }).then(response => response.json())    // one extra step
       .then(data => {
+        //setSyncConfig("configs", JSON.stringify(data[0]))
         resolve(data[0]);
       })
       .catch(error => console.error(error));}
@@ -110,19 +111,46 @@ async function getConfiguration(email) {
   });  
 }
 
-function syncSetConfig(key, value) {
+function setSyncConfig(key, value) {
   chrome.storage.sync.set({key: value}, function() {
     console.log(key + ' is set to ' + value);
   });
 }
 
-async function syncGetConfig() {
+function clearSyncConfig() {
+  chrome.storage.sync.clear(function() {
+    var error = chrome.runtime.lastError;
+    console.log("cleaning")
+    if (error) {
+        console.error(error);
+    }
+  });
+}
+
+async function getSyncConfig() {
   return new Promise((resolve, reject) => {
     try {
       chrome.storage.sync.get(['key'], function(result) {
-        let key = JSON.parse(result.key)
-        timeoutValue = key.timeoutValue;
-        resolve(timeoutValue);
+        if (result.hasOwnProperty("key")) {
+          let key = JSON.parse(result.key)
+          resolve(key.timeoutValue);
+        } else {
+          console.log("nao tem config no chrome")
+          resolve(false);
+        }
+      })
+    }
+    catch (ex) {
+      reject(ex);
+    }
+  });
+}
+
+async function getChromeUser() {
+  return new Promise((resolve, reject) => {
+    try {
+      chrome.identity.getProfileUserInfo(async function(info) { 
+        resolve(info.email)
       })
     }
     catch (ex) {
@@ -132,27 +160,27 @@ async function syncGetConfig() {
 }
 
 async function getChromeUserConfig() {
-  chrome.identity.getProfileUserInfo(async function(info) { 
-    let email = info.email;
-    timeoutValue = await syncGetConfig();
-    let userDBConfig = await getConfiguration(email);
-    
-    //se pegar valor do chrome, verifica se tem valor no banco
-    if (timeoutValue) {
-      console.log("a")
-      // se nao tiver valor no banco, add
-      if (userDBConfig === undefined) {
-        console.log("a1")
-        postConfiguration(email, "chrome", timeoutValue);
-        //se tiver valor, atualiza
-      } else {
-        console.log("a2")
-        putConfiguration(email, "chrome", timeoutValue);
-      }
+  clearSyncConfig()
+  let email = await getChromeUser();
+  let userSyncConfig = await getSyncConfig();
+  let userDBConfig = await getConfiguration(email);
+  
+  if (userSyncConfig) {
+    timeoutValue = userSyncConfig;
+    if (userDBConfig === undefined) {
+      console.log("a1")
+      postConfiguration(email, "chrome", timeoutValue);
     } else {
-      console.log("b")
+      console.log("a2")
+      putConfiguration(email, "chrome", timeoutValue)
     }
-  });
+  } else if (userDBConfig) {
+    console.log("b")
+    timeoutValue = userDBConfig.timeoutValue;
+    setSyncConfig("configs", JSON.stringify(userDBConfig))
+  } else {
+    postConfiguration(email, "chrome", timeoutValue);
+  }
 }
 
 async function getUrlException(userId) {
