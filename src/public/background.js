@@ -60,7 +60,7 @@ async function postCapturedUrl(userId, capturedUrl, momentOfCapture) {
   });
 }
 
-async function postConfiguration(userId, setBy, timeoutValue) {
+async function postConfiguration(email, setBy, timeoutValue) {
   fetch('http://localhost:8085/configuration?email='+email, {
     method: 'POST',
     headers: {
@@ -91,20 +91,23 @@ async function putConfiguration(email, setBy, timeoutValue) {
 }
 
 async function getConfiguration(email) {
-  fetch('http://localhost:8085/configuration?email='+email, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+  return new Promise((resolve, reject) => {
+    try {
+      fetch('http://localhost:8085/configuration?email='+email, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }).then(response => response.json())    // one extra step
+      .then(data => {
+        resolve(data[0]);
+      })
+      .catch(error => console.error(error));}
+    catch (ex) {
+        reject(ex);
     }
-  }).then(response => response.json())    // one extra step
-  .then(data => {
-    if(data != null){timeoutValue = data.timeoutValue;}
-    let configs = JSON.stringify(data[0])
-    //syncSetConfig("configs", configs);
-   
-  })
-  .catch(error => console.error(error));  
+  });  
 }
 
 function syncSetConfig(key, value) {
@@ -123,24 +126,22 @@ async function syncGetConfig() {
       })
     }
     catch (ex) {
-        reject(ex);
+      reject(ex);
     }
   });
 }
 
 async function getChromeUserConfig() {
-  timeoutValue = await syncGetConfig();
-  chrome.identity.getProfileUserInfo(function(info) { 
+  chrome.identity.getProfileUserInfo(async function(info) { 
     let email = info.email;
-    console.log(email)
-
-    console.log(timeoutValue)
-    let userDBConfig = getConfiguration(email);
+    timeoutValue = await syncGetConfig();
+    let userDBConfig = await getConfiguration(email);
+    
     //se pegar valor do chrome, verifica se tem valor no banco
     if (timeoutValue) {
       console.log("a")
       // se nao tiver valor no banco, add
-      if (userDBConfig == "{}") {
+      if (userDBConfig === undefined) {
         console.log("a1")
         postConfiguration(email, "chrome", timeoutValue);
         //se tiver valor, atualiza
