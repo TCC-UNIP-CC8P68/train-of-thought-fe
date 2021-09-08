@@ -45,21 +45,17 @@ async function putConfiguration(email, setBy, timeoutValue) {
 
 async function getConfiguration(email) {
   return new Promise((resolve, reject) => {
-    try {
-      fetch('http://localhost:8085/configuration?email='+email, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      }).then(response => response.json())
-      .then(data => {
-        resolve(data[0]);
-      })
-      .catch(error => console.error(error));}
-    catch (ex) {
-        reject(ex);
-    }
+    fetch('http://localhost:8085/configuration?email='+email, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+    .then(data => {
+      resolve(data[0]);
+    })
+    .catch(error => console.error(error));
   });  
 }
 
