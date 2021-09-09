@@ -1,0 +1,33 @@
+header {
+  width: 100%;
+  display: flex;
+  background-color: var(--colorPrimary);
+  height: 4.5rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+  transition: ease 0.3s;
+  p {
+    color: var(--color-white);
+    font-size: 20px;
+  }
+  &.night_mode {
+    background-color: var(--colorSecondary);
+  }
+  .btn-config {
+    span {
+      color: var(--color-white);
+      font-size: 25px;
+      cursor: pointer;
+      svg{
+        transition: ease 0.3s;
+      }
+      &:hover{
+        svg{
+          transform: rotate(90deg);
+        }
+        
+      }
+    }
+  }
+}
