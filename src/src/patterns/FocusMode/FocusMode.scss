@@ -1,0 +1,27 @@
+.focusMode {
+  max-width: 320px;
+  margin: 0 auto;
+  form {
+    h1 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: var(--color-dark-grey);
+    }
+    .container_form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .inputCustom,
+      button {
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+      button {
+        margin-left: 5px;
+      }
+    }
+  }
+  .container_time {
+    margin-top: 20px;
+  }
+}

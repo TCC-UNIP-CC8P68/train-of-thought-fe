@@ -1,0 +1,32 @@
+.popUp_config {
+  background-color: var(--fundo);
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  bottom: 0;
+  height: 0px;
+  transition: ease 0.3s;
+  .container_config {
+    width: 100%;
+    padding: 20px 15px 10px 10px;
+    form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: nowrap;
+      flex-direction: column;
+      .container_check {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 50%;
+      }
+    }
+  }
+  &.open_config {
+    height: calc(100% - 123px);
+  }
+  &.night_mode {
+    background-color: var(--color-grey);
+  }
+}
