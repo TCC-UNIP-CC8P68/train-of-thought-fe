@@ -1,0 +1,11 @@
+.container_extension {
+  min-height: 230px;
+  .container {
+    width: 100%;
+    transition: ease 0.3s;
+    padding: 20px 15px 10px 10px;
+    &.night_mode {
+      background-color: var(--colorSecondary);
+    }
+  }
+}

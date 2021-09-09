@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+body,
+h1,
+h2,
+ul,
+ul,
+li,
+p,
+a {
+  margin: 0px;
+  padding: 0px;
+}
+
+a:focus,
+input:focus,
+select:focus,
+button:focus {
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Montserrat, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+input {
+  &:focus {
+    outline-offset: none;
+    border: none;
+    outline: none;
+  }
+}
+
+.container {
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+.container-full {
+  width: 100%;
+}
+
+:root {
+  --fundo: #faf6ed;
+  --xcolorPrimary: #5965e0;
+  --colorPrimary: #4508ad;
+  --colorSecondary: #222;
+  --color-purple: #896dff;
+  --color-light-purple: #d0c4ff;
+  --color-dark-purple: #5c45a9;
+  --color-grey: #4d4c59;
+  --color-dark-grey: #333;
+  --color-light-grey: #979797;
+  --color-black: #000;
+  --color-white: #fff;
+  --color-dark-green: #107539;
+  --color-light-green: #6fde9b;
+  --color-dark-red: #9c132a;
+  --color-light-red: #ffa1b1;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  width: 34rem;
+  .body_popup {
+    width: 100%;
+    display: block;
+    position: relative;
+  }
+}
