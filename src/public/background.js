@@ -30,7 +30,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 chrome.runtime.onMessage.addListener(
   async function(request) {
     setBy = request[0];
-    timeoutValue = request[1]*1000;
+    timeoutValue = request[1];
     putConfiguration(email, setBy, timeoutValue);
 
     console.log('Valor do timeout definido para: ' + timeoutValue + " ms definido via: " + request[0]);
