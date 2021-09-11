@@ -13,8 +13,40 @@ async function postCapturedUrl(email, capturedUrl, momentOfCapture) {
   });
 }
 
-async function postConfiguration(email, setBy, timeoutValue) {
+async function postConfiguration(email, setBy, timeoutValue, allowCapture) {
   fetch('http://localhost:8085/configuration?email='+email, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "email": email, 
+      "setBy": setBy,
+      "timeoutValue": timeoutValue,
+      "allowCapture": allowCapture
+    })
+  });
+}
+
+async function putConfiguration(email, setBy, timeoutValue, allowCapture) {
+  fetch('http://localhost:8085/configuration?email='+email, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "email": email, 
+      "setBy": setBy,
+      "timeoutValue": timeoutValue,
+      "allowCapture": allowCapture
+    })
+  });
+}
+
+async function postConfigurationTimeout(email, setBy, timeoutValue) {
+  fetch('http://localhost:8085/configuration/timeout?email='+email, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -28,8 +60,8 @@ async function postConfiguration(email, setBy, timeoutValue) {
   });
 }
 
-async function putConfiguration(email, setBy, timeoutValue) {
-  fetch('http://localhost:8085/configuration?email='+email, {
+async function putConfigurationTimeout(email, setBy, timeoutValue) {
+  fetch('http://localhost:8085/configuration/timeout?email='+email, {
     method: 'PUT',
     headers: {
       'Accept': 'application/json',
@@ -41,6 +73,68 @@ async function putConfiguration(email, setBy, timeoutValue) {
       "timeoutValue": timeoutValue
     })
   });
+}
+
+async function getConfigurationTimeout(email) {
+  return new Promise((resolve, reject) => {
+    fetch('http://localhost:8085/configuration/timeout?email='+email, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+    .then(data => {
+      resolve(data[0]);
+    })
+    .catch(error => console.error(error));
+  });  
+}
+
+async function postConfigurationAllowCapture(email, setBy, allowCapture) {
+  fetch('http://localhost:8085/configuration/allowcapture?email='+email, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "email": email, 
+      "setBy": setBy,
+      "allowCapture": allowCapture
+    })
+  });
+}
+
+async function putConfigurationAllowCapture(email, setBy, allowCapture) {
+  fetch('http://localhost:8085/configuration/allowcapture?email='+email, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "email": email, 
+      "setBy": setBy,
+      "allowCapture": allowCapture
+    })
+  });
+}
+
+async function getConfigurationAllowCapture(email) {
+  return new Promise((resolve, reject) => {
+    fetch('http://localhost:8085/configuration/allowcapture?email='+email, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+    .then(data => {
+      resolve(data[0]);
+    })
+    .catch(error => console.error(error));
+  });  
 }
 
 async function getConfiguration(email) {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import './CheckSwitch.scss';
 
-function CheckSwitch({ classInput, id, label, value, checked, setChecked }) {
+function CheckSwitch({ classInput, id, label, value, checked, setChecked, onClick }) {
   return (
     <div className="check-switch">
       <input
@@ -12,6 +12,7 @@ function CheckSwitch({ classInput, id, label, value, checked, setChecked }) {
         value={value ? value : id}
         checked={checked}
         onChange={({ target }) => setChecked(target.checked)}
+        onClick={onClick}
       />
       <label
         className={`switcher ${classInput ? classInput : ''}`}

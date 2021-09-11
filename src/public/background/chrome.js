@@ -8,8 +8,9 @@ async function getChromeUserConfig() {
   let userSyncConfig = await getSyncConfig();
   let userDBConfig = await getConfiguration(email);
   
-  if (userSyncConfig) {
-    timeoutValue = userSyncConfig;
+  if (userSyncConfig.timeoutValue && userSyncConfig.allowCapture) {
+    timeoutValue = userSyncConfig.timeoutValue;
+    allowCapture = userSyncConfig.allowCapture;
     if (userDBConfig === undefined) {
       postConfiguration(email, "chrome", timeoutValue);
     } else {
@@ -17,6 +18,7 @@ async function getChromeUserConfig() {
     }
   } else if (userDBConfig) {
     timeoutValue = userDBConfig.timeoutValue;
+    allowCapture = userDBConfig.allowCapture;
     setSyncConfig("configs", JSON.stringify(userDBConfig))
   } else {
     postConfiguration(email, "chrome", timeoutValue);
@@ -58,7 +60,7 @@ async function getSyncConfig() {
       chrome.storage.sync.get(['key'], function(result) {
         if (result.hasOwnProperty("key")) {
           let key = JSON.parse(result.key)
-          resolve(key.timeoutValue);
+          resolve(key);
         } else {
           console.log("nao tem config no chrome")
           resolve(false);
