@@ -5,7 +5,7 @@ import React from "react";
 import { GlobalContext } from "../../contexts/GlobalContext";
 import ButtonCustom from "../../components/ButtonCustom";
 import InputCustom from "../../components/InputCustom";
-import { handleTime } from '../../utils/utilsFunction';
+import { handleTime, setCaptureOnOff } from '../../utils/utilsFunction';
 import CheckSwitch from "../../components/CheckSwitch";
 import { maskTime, removeMaskTime } from "../../utils/utilsMask";
 
@@ -46,6 +46,7 @@ function SearchMode() {
             value="capture"
             checked={global.allowCapture}
             setChecked={global.setAllowCapture}
+            onClick={() => {setCaptureOnOff()}}
           />
         </div>
       </form>
