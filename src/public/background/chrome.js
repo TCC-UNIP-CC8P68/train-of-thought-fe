@@ -21,7 +21,9 @@ async function getChromeUserConfig() {
     allowCapture = userDBConfig.allowCapture;
     setSyncConfig("configs", JSON.stringify(userDBConfig))
   } else {
-    postConfiguration(email, "chrome", timeoutValue);
+    postConfiguration(email, "chrome", timeoutValue).then(function(res) {
+      setSyncConfig("configs", JSON.stringify(res))
+    })
   }
 }
 

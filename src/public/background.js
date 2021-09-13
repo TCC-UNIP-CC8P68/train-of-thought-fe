@@ -33,14 +33,19 @@ chrome.runtime.onMessage.addListener(
     if (req.field === "timeout") {
       let setBy = req.setBy;
       timeoutValue = req.timeoutValue;
-      putConfigurationTimeout(email, setBy, timeoutValue);
+      putConfigurationTimeout(email, setBy, timeoutValue).then(function(res) {
+        setSyncConfig("configs", JSON.stringify(res));
+      });
 
       console.log('Valor do timeout definido para: ' + timeoutValue + " ms definido via: " + setBy);
     } else if (req.field === "allowCapture") {
       let setBy = req.setBy;
       allowCapture = req.allowCapture;
-      putConfigurationAllowCapture(email, setBy, allowCapture);
-
+      putConfigurationAllowCapture(email, setBy, allowCapture).then(function(res) {
+        console.log(res)
+        setSyncConfig("configs", JSON.stringify(res));
+      });
+      
       console.log('Valor do allowCapture definido para: ' + allowCapture + " via: " + setBy);
     }  
   }
