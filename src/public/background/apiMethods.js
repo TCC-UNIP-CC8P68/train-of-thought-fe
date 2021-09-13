@@ -85,22 +85,6 @@ async function putConfigurationTimeout(email, setBy, timeoutValue) {
   });  
 }
 
-async function getConfigurationTimeout(email) {
-  return new Promise((resolve, reject) => {
-    fetch('http://localhost:8085/configuration/timeout?email='+email, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then(response => response.json())
-    .then(data => {
-      resolve(data[0]);
-    })
-    .catch(error => console.error(error));
-  });  
-}
-
 async function postConfigurationAllowCapture(email, setBy, allowCapture) {
   fetch('http://localhost:8085/configuration/allowcapture?email='+email, {
     method: 'POST',
@@ -133,22 +117,6 @@ async function putConfigurationAllowCapture(email, setBy, allowCapture) {
     .then(data => {
       resolve(data[0]);
     });
-  });  
-}
-
-async function getConfigurationAllowCapture(email) {
-  return new Promise((resolve, reject) => {
-    fetch('http://localhost:8085/configuration/allowcapture?email='+email, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then(response => response.json())
-    .then(data => {
-      resolve(data[0]);
-    })
-    .catch(error => console.error(error));
   });  
 }
 
