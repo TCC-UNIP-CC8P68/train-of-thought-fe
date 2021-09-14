@@ -14,7 +14,6 @@ import "./SearchMode.scss";
 function SearchMode() {
   const global = React.useContext(GlobalContext);
 
-  const [time, setTime] = React.useState("");
   const refTime = React.useRef(null);
 
   return (
@@ -32,8 +31,8 @@ function SearchMode() {
           <InputCustom
             id="timeUser"
             label="Tempo de Captura"
-            value={time}
-            setValue={setTime}
+            value={global.time}
+            setValue={global.setTime}
             refInput={refTime}
             mask={maskTime}
           />

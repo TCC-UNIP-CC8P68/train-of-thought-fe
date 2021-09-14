@@ -20,13 +20,18 @@ function InputCustom({
     setValue(mask(e.target.value));
   }
 
+  function handleMaskValue(e) {
+    setValue(mask(e.target.value));
+    return value
+  }
+
   return (
     <div className={`inputCustom ${classInput ? classInput : ''}`}>
       <input
         type={type ? type : 'text'}
         name={id}
         id={id}
-        value={value}
+        value={handleMaskValue(value)}
         onChange={mask ? handleValueMask : handleValue}
         ref={refInput}
       />

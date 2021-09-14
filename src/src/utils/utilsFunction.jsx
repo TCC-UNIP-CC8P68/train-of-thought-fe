@@ -19,3 +19,22 @@ export function muteTabsOnOff() {
   let message = {field: "muteTabs"};
   chrome.runtime.sendMessage(message);
 }
+
+export async function getSyncConfig(setValue) {
+  return new Promise((resolve, reject) => {
+    try {
+      chrome.storage.sync.get(['key'], function(result) {
+        if (result.hasOwnProperty("key")) {
+          let key = JSON.parse(result.key)
+          resolve(key);
+        } else {
+          console.log("nao tem config no chrome")
+          resolve(false);
+        }
+      })
+    }
+    catch (ex) {
+      reject(ex);
+    }
+  });
+}
