@@ -1,5 +1,11 @@
 try {
-  importScripts("./background/chrome.js", "./background/apiMethods.js");
+  importScripts(
+    "./background/analysis.js", 
+    "./background/captures.js", 
+    "./background/chrome.js", 
+    "./background/configurations.js", 
+    "./background/urlExceptions.js"
+  );
 } catch (e) {
   console.log(e);
 }
@@ -10,11 +16,11 @@ let email;
 let allowCapture;
 
 (async () => {
-  var thenedPromise = getChromeUser().then(function(value) {
+  var chromeUser = getChromeUser().then(function(value) {
     email=value;
   });
 
-  await thenedPromise;
+  await chromeUser;
 
   getChromeUserConfig()
 })();
@@ -42,39 +48,12 @@ chrome.runtime.onMessage.addListener(
       let setBy = req.setBy;
       allowCapture = req.allowCapture;
       putConfigurationAllowCapture(email, setBy, allowCapture).then(function(res) {
-        console.log(res)
         setSyncConfig("configs", JSON.stringify(res));
       });
       
       console.log('Valor do allowCapture definido para: ' + allowCapture + " via: " + setBy);
-    } else if (req.field == "muteTabs") {
+    } else if (req.field === "muteTabs") {
         muteTabs();
     }  
   }
 );
-
-async function makeAnalysis(){
-  clearTimeout(analysisTimeout);
-
-  analysisTimeout = setTimeout(async function(){
-    if(allowCapture){
-      let captureUrl = true;
-      let tab = await getCurrentTab();
-      let urlExceptions = await getUrlException(email);
-      urlExceptions.forEach(element => {
-        console.log(element.url)
-        if(tab.url.match(element.url)) {
-          console.log("Url não pode ser capturada")
-          captureUrl = false;
-        }
-      });
-      if(captureUrl) {
-        let date = new Date();
-        let momentOfCapture = date.getTime();
-        console.log("URL Capturada: " + tab.url);
-        console.log('Timeout: ' + timeoutValue);
-        postCapturedUrl(email, tab.url, momentOfCapture);
-      }
-    }
-  },timeoutValue);
-}
