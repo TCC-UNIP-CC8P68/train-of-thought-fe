@@ -42,6 +42,8 @@ chrome.runtime.onMessage.addListener(
       putConfigurationAllowCapture(email, setBy, allowCapture);
 
       console.log('Valor do allowCapture definido para: ' + allowCapture + " via: " + setBy);
+    } else if (req.field == "muteTabs") {
+        muteTabs();
     }  
   }
 );
