@@ -107,17 +107,19 @@ async function getConfiguration(email) {
 }
 
 async function getUrlException(email) {
-  fetch('http://localhost:8085/urlexception?email='+email, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  }).then(response => response.json())
-  .then(data => {
-    return data;
-  })
-  .catch(error => console.error(error));  
+  return new Promise((resolve, reject) => {
+    fetch('http://localhost:8085/urlexception?email='+email, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+    .then(data => {
+      resolve(data);
+    })
+    .catch(error => console.error(error));  
+  });  
 }
 
 async function verifyUrlException(email, url) {
