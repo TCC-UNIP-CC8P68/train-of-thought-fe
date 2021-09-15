@@ -4,6 +4,11 @@ async function getCurrentTab() {
   return tab;
 }
 
+async function getTabs(queryOptions) {
+  let tabs = await chrome.tabs.query(queryOptions);
+  return tabs;
+}
+
 async function getChromeUserConfig() {
   let userSyncConfig = await getSyncConfig();
   let userDBConfig = await getConfiguration(email);
@@ -73,4 +78,18 @@ async function getSyncConfig() {
       reject(ex);
     }
   });
+}
+
+async function muteTabs() {
+  let audibleTabs = await getTabs( { active: false, audible: true});
+  
+  if(audibleTabs.length > 0) {
+    audibleTabs.map(tabInfo => {
+      let tabId = tabInfo.id;
+      let isMuted = !tabInfo.mutedInfo.muted;
+      
+      chrome.tabs.update(tabId, { muted: isMuted });
+      console.log((isMuted) ? 'Abas mutadas' : 'Abas desmutadas');
+    });
+  }
 }

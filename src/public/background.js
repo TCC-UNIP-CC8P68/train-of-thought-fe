@@ -47,6 +47,8 @@ chrome.runtime.onMessage.addListener(
       });
       
       console.log('Valor do allowCapture definido para: ' + allowCapture + " via: " + setBy);
+    } else if (req.field == "muteTabs") {
+        muteTabs();
     }  
   }
 );
