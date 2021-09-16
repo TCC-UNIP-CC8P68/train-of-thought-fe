@@ -50,7 +50,7 @@ function SearchMode() {
           />
         </div>
 
-        <div className="allowCapture">
+        <div className="muteTabs">
           <CheckSwitch
             id="mute_tabs"
             label="Mutar abas"

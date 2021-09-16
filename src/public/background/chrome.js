@@ -80,16 +80,30 @@ async function getSyncConfig() {
   });
 }
 
+async function toggleMute(isMuted) {
+  isMuted ? muteTabs() : unmuteTabs();
+}
+
 async function muteTabs() {
-  let audibleTabs = await getTabs( { active: false, audible: true});
-  
+  let audibleTabs = await getTabs({ active: false, audible: true });
+   
   if(audibleTabs.length > 0) {
     audibleTabs.map(tabInfo => {
       let tabId = tabInfo.id;
-      let isMuted = !tabInfo.mutedInfo.muted;
-      
-      chrome.tabs.update(tabId, { muted: isMuted });
-      console.log((isMuted) ? 'Abas mutadas' : 'Abas desmutadas');
+      chrome.tabs.update(tabId, { muted: true });
     });
-  }
+  } 
+  console.log(audibleTabs);
+}
+
+async function unmuteTabs() {
+  let mutedTabs = await getTabs({ audible: true, muted: true });
+  
+  if(mutedTabs.length > 0) {
+    mutedTabs.map(tabInfo => {
+      let tabId = tabInfo.id;
+      chrome.tabs.update(tabId, { muted: false });
+    });
+    console.log(mutedTabs);
+  } 
 }

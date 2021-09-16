@@ -48,7 +48,9 @@ chrome.runtime.onMessage.addListener(
       
       console.log('Valor do allowCapture definido para: ' + allowCapture + " via: " + setBy);
     } else if (req.field == "muteTabs") {
-        muteTabs();
+        // TODO: post mute configuration on database
+        // TODO: sync chrome config
+        toggleMute(req.isMuted);
     }  
   }
 );
