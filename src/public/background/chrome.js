@@ -80,7 +80,12 @@ async function getSyncConfig() {
   });
 }
 
-async function toggleMute(isMuted) {
+async function dynamicMute() {
+  unmuteActive();
+  muteTabs();
+}
+
+async function dontDisturb(isMuted) {
   isMuted ? muteTabs() : unmuteTabs();
 }
 
@@ -93,17 +98,26 @@ async function muteTabs() {
       chrome.tabs.update(tabId, { muted: true });
     });
   } 
-  console.log(audibleTabs);
 }
 
-async function unmuteTabs() {
-  let mutedTabs = await getTabs({ audible: true, muted: true });
+async function unmuteActive() {
+  let mutedTabs = await getTabs({ active: true, muted: true });
   
   if(mutedTabs.length > 0) {
     mutedTabs.map(tabInfo => {
       let tabId = tabInfo.id;
       chrome.tabs.update(tabId, { muted: false });
     });
-    console.log(mutedTabs);
+  } 
+}
+
+async function unmuteTabs() {
+  let mutedTabs = await getTabs({ muted: true });
+  
+  if(mutedTabs.length > 0) {
+    mutedTabs.map(tabInfo => {
+      let tabId = tabInfo.id;
+      chrome.tabs.update(tabId, { muted: false });
+    });
   } 
 }

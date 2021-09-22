@@ -53,7 +53,7 @@ function SearchMode() {
         <div className="muteTabs">
           <CheckSwitch
             id="mute_tabs"
-            label="Mutar abas"
+            label="Não pertube"
             value="capture"
             checked={global.allowMute}
             setChecked={global.setAllowMute}

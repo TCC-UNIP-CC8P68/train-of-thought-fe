@@ -50,7 +50,11 @@ chrome.runtime.onMessage.addListener(
     } else if (req.field == "muteTabs") {
         // TODO: post mute configuration on database
         // TODO: sync chrome config
-        toggleMute(req.isMuted);
+        dontDisturb(req.isMuted);
+        
+        if(req.isMuted) {
+          chrome.tabs.onActivated.addListener(() => dynamicMute());  
+        }
     }  
   }
 );
