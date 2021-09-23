@@ -1,3 +1,5 @@
+var XMLHttpRequest = require('xhr2');
+const matchAll = require('string.prototype.matchall');
 try {
   importScripts("./background/chrome.js", "./background/apiMethods.js");
 } catch (e) {
@@ -69,6 +71,7 @@ async function makeAnalysis(){
         }
       });
       if(captureUrl) {
+        getMetaTags(tab.url)
         let date = new Date();
         let momentOfCapture = date.getTime();
         console.log("URL Capturada: " + tab.url);

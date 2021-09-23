@@ -135,3 +135,36 @@ async function verifyUrlException(email, url) {
   })
   .catch(error => console.error(error));  
 }
+
+async function getMetaTags(url) {
+  try {
+    const TAGS = [
+      "title",
+      "description",
+      "strong"
+    ]
+    let x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+      if(this.readyState==4 && this.status==200) {
+        let response = this.responseText;
+
+        let metaTags = []
+        for(let i=0;i<TAGS.length; i++) {
+          let reg = "<"+TAGS[i]+".*?>(.*?)<\/"+TAGS[i]+">";
+         
+          let res = [... matchAll(response, reg)];
+          if(res !== null) {
+            for (let j=0; j < res.length; j++) {
+              metaTags.push(res[j][0])
+            }
+          }            
+        }
+        console.log(JSON.stringify(metaTags))
+      }
+    }
+    x.open("GET", url);
+    x.send();
+  } catch (error) {
+    console.log(error)
+  }
+}
