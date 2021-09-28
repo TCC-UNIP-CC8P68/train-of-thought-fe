@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { getSyncConfig } from '../utils/utilsFunction';
+import React, { useEffect, useState } from "react";
+import { getSyncConfig } from "../utils/utilsFunction";
+import { firstMaskValue } from "../utils/utilsMask";
 
 export const GlobalContext = React.createContext();
 
@@ -9,23 +10,34 @@ export const GlobalStorege = ({ children }) => {
   const [onConfig, setOnConfig] = React.useState(false);
   const [allowMute, setAllowMute] = useState(false);
   const [time, setTime] = React.useState("");
-  const [allowCapture, setAllowCapture] = useState({})
+  const [allowCapture, setAllowCapture] = useState({});
 
   function handleNightMode() {
     setNightMode(!nightMode);
   }
   useEffect(() => {
-    getSyncConfig().then(function(res) {
+    getSyncConfig().then(function (res) {
       setAllowCapture(res.allowCapture);
-      setTime(res.timeoutValue)
-    })
-  }, [])
-
-  
+      setTime(firstMaskValue(res.timeoutValue));
+    });
+  }, []);
 
   return (
     <GlobalContext.Provider
-      value={{ nightMode, handleNightMode, typeMode, setTypeMode, onConfig, setOnConfig, time, setTime, allowCapture, setAllowCapture, allowMute, setAllowMute }}
+      value={{
+        nightMode,
+        handleNightMode,
+        typeMode,
+        setTypeMode,
+        onConfig,
+        setOnConfig,
+        time,
+        setTime,
+        allowCapture,
+        setAllowCapture,
+        allowMute, 
+        setAllowMute
+      }}
     >
       {children}
     </GlobalContext.Provider>

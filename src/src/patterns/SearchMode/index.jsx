@@ -22,9 +22,9 @@ function SearchMode() {
         onSubmit={(e) => {
           e.preventDefault();
           const [min, sec] = removeMaskTime(refTime.current.value);
-          const totalTime = ((min * 60) + Number(sec)) * 1000;
+          const totalTime = (min * 60 + Number(sec)) * 1000;
 
-          handleTime(totalTime);
+          // handleTime(totalTime);
         }}
       >
         <div className="container_form">
@@ -45,7 +45,7 @@ function SearchMode() {
             value="capture"
             checked={global.allowCapture}
             setChecked={global.setAllowCapture}
-            onClick={() => {setCaptureOnOff()}}
+            // onClick={() => {setCaptureOnOff()}}
           />
         </div>
 
