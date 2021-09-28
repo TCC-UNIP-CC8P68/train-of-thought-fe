@@ -5,7 +5,7 @@ import React from "react";
 import { GlobalContext } from "../../contexts/GlobalContext";
 import ButtonCustom from "../../components/ButtonCustom";
 import InputCustom from "../../components/InputCustom";
-import { handleTime, setCaptureOnOff } from '../../utils/utilsFunction';
+// import { handleTime, setCaptureOnOff } from '../../utils/utilsFunction';
 import CheckSwitch from "../../components/CheckSwitch";
 import { maskTime, removeMaskTime } from "../../utils/utilsMask";
 
@@ -22,9 +22,9 @@ function SearchMode() {
         onSubmit={(e) => {
           e.preventDefault();
           const [min, sec] = removeMaskTime(refTime.current.value);
-          const totalTime = ((min * 60) + Number(sec)) * 1000;
+          const totalTime = (min * 60 + Number(sec)) * 1000;
 
-          handleTime(totalTime);
+          // handleTime(totalTime);
         }}
       >
         <div className="container_form">
@@ -45,7 +45,7 @@ function SearchMode() {
             value="capture"
             checked={global.allowCapture}
             setChecked={global.setAllowCapture}
-            onClick={() => {setCaptureOnOff()}}
+            // onClick={() => {setCaptureOnOff()}}
           />
         </div>
       </form>

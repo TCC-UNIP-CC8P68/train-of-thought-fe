@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import './InputCustom.scss';
+import "./InputCustom.scss";
 
 function InputCustom({
   classInput,
@@ -13,29 +13,24 @@ function InputCustom({
   mask,
 }) {
   function handleValue(e) {
-    setValue(mask(e.target.value));
+    setValue(e.target.value);
   }
 
   function handleValueMask(e) {
     setValue(mask(e.target.value));
   }
 
-  function handleMaskValue(e) {
-    setValue(mask(e.target.value));
-    return value
-  }
-
   return (
-    <div className={`inputCustom ${classInput ? classInput : ''}`}>
+    <div className={`inputCustom ${classInput ? classInput : ""}`}>
       <input
-        type={type ? type : 'text'}
+        type={type ? type : "text"}
         name={id}
         id={id}
-        value={handleMaskValue(value)}
+        value={value}
         onChange={mask ? handleValueMask : handleValue}
         ref={refInput}
       />
-      <label htmlFor={id} className={value ? 'onValue' : ''}>
+      <label htmlFor={id} className={value ? "onValue" : ""}>
         {label}
       </label>
     </div>
