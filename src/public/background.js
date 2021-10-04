@@ -42,19 +42,26 @@ chrome.runtime.onMessage.addListener(
       let setBy = req.setBy;
       allowCapture = req.allowCapture;
       putConfigurationAllowCapture(email, setBy, allowCapture).then(function(res) {
-        console.log(res)
         setSyncConfig("configs", JSON.stringify(res));
       });
       
       console.log('Valor do allowCapture definido para: ' + allowCapture + " via: " + setBy);
-    } else if (req.field == "muteTabs") {
-        // TODO: post mute configuration on database
+    } else if (req.field === "dontDisturb") {
         // TODO: sync chrome config
-        dontDisturb(req.isMuted);
+        let setBy = req.setBy;
+        let isDontDisturbActive = req.toggleDontDisturb;
+
+        let userConfig = await putConfigurationDontDisturb(email, setBy, isDontDisturbActive);
+        console.log(userConfig, 'Config do chrome', getSyncConfig())
+
+        await getChromeConfig();
+        await setChromeConfig("xampson", true);        
         
-        if(req.isMuted) {
+        if(isDontDisturbActive) {
           chrome.tabs.onActivated.addListener(() => dynamicMute());  
         }
+
+        dontDisturb(isDontDisturbActive);
     }  
   }
 );

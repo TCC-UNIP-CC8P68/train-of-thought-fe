@@ -15,9 +15,9 @@ export function setCaptureOnOff() {
   chrome.runtime.sendMessage(message);
 }
 
-export function muteTabsOnOff() {
-  let muteTabs = document.querySelector("#mute_tabs").checked;
+export function toggleDontDisturb() {
+  let dontDisturb = document.querySelector("#dont_disturb").checked;
 
-  let message = {field: "muteTabs", setBy: "popup", isMuted: muteTabs};
+  let message = {field: "dontDisturb", setBy: "popup", toggleDontDisturb: dontDisturb};
   chrome.runtime.sendMessage(message);
 }

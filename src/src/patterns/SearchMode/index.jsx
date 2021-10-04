@@ -5,7 +5,7 @@ import React from "react";
 import { GlobalContext } from "../../contexts/GlobalContext";
 import ButtonCustom from "../../components/ButtonCustom";
 import InputCustom from "../../components/InputCustom";
-import { handleTime, setCaptureOnOff, muteTabsOnOff } from '../../utils/utilsFunction';
+import { handleTime, setCaptureOnOff, toggleDontDisturb } from '../../utils/utilsFunction';
 import CheckSwitch from "../../components/CheckSwitch";
 import { maskTime, removeMaskTime } from "../../utils/utilsMask";
 
@@ -52,12 +52,12 @@ function SearchMode() {
 
         <div className="muteTabs">
           <CheckSwitch
-            id="mute_tabs"
+            id="dont_disturb"
             label="Não pertube"
             value="capture"
             checked={global.allowMute}
             setChecked={global.setAllowMute}
-            onClick={() => {muteTabsOnOff()}}
+            onClick={() => {toggleDontDisturb()}}
           />
         </div>
       </form>
