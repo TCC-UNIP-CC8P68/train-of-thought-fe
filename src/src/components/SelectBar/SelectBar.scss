@@ -14,7 +14,7 @@
       height: 50px;
       cursor: pointer;
       &::after {
-        content: '';
+        content: "";
         background-color: var(--colorPrimary);
         width: 0%;
         height: 2px;
@@ -28,9 +28,10 @@
         font-size: 18px;
         color: var(--color-black);
         transition: ease 0.4s;
+        font-weight: 500;
       }
       &.onBtn {
-        background-color: var(--color-purple);
+        background-color: var(--colorTertiary);
         span {
           color: var(--color-white);
         }
@@ -40,7 +41,7 @@
       }
       &:hover {
         span {
-          color: var(--colorPrimary);
+          color: var(--color-dark-blue);
         }
         &::after {
           width: 100%;

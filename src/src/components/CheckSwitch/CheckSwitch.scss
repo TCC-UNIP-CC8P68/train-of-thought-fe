@@ -16,7 +16,7 @@
     cursor: pointer;
     transition: ease 0.3s;
     &::before {
-      content: '';
+      content: "";
       display: block;
       width: 21px;
       height: 21px;
@@ -25,19 +25,19 @@
       border-radius: 50%;
       position: absolute;
       top: 2px;
-      right: 3px;
+      right: 26px;
       box-sizing: border-box;
       margin-right: 0;
       transition: ease 0.3s;
     }
   }
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     display: none;
     visibility: hidden;
     &:checked + .switcher {
       background-color: var(--color-light-green);
       &::before {
-        right: 26px;
+        right: 3px;
         background-color: var(--color-dark-green);
       }
     }
@@ -45,5 +45,13 @@
   span {
     font-size: 14px;
     margin-left: 5px;
+  }
+}
+
+.night_mode {
+  .check-switch {
+    span {
+      color: var(--color-white);
+    }
   }
 }

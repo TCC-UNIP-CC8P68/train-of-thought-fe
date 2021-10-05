@@ -19,14 +19,16 @@ header {
       color: var(--color-white);
       font-size: 25px;
       cursor: pointer;
-      svg{
+      svg {
         transition: ease 0.3s;
       }
-      &:hover{
-        svg{
+      &:hover {
+        svg {
           transform: rotate(90deg);
         }
-        
+      }
+      &:first-child {
+        margin-right: 10px;
       }
     }
   }

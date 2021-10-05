@@ -1,11 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import { GlobalStorege } from './contexts/GlobalContext';
-import Header from './components/Header';
-import Extension from './pages/Extension';
-import UserConfig from './patterns/UserConfig';
+import { GlobalStorege } from "./contexts/GlobalContext";
+import Header from "./components/Header";
+import Extension from "./pages/Extension";
 
-import './sass/global.scss';
+import "./sass/global.scss";
 
 function App() {
   return (
@@ -13,7 +12,6 @@ function App() {
       <GlobalStorege>
         <Header />
         <Extension />
-        <UserConfig />
       </GlobalStorege>
     </div>
   );

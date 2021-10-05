@@ -22,9 +22,13 @@ function Extension() {
 
   return (
     <>
-      <main className="container_extension">
+      <main
+        className={`container_extension ${
+          global.nightMode ? "night_mode" : ""
+        }`}
+      >
         <SelectBar buttons={btnSelect} />
-        <div className={`container ${global.nightMode ? "night_mode" : ""}`}>
+        <div className={`container`}>
           {global.typeMode === 0 && <SearchMode />}
           {global.typeMode === 1 && <FocusMode />}
         </div>
