@@ -103,10 +103,8 @@ async function putConfigurationDontDisturb(email, setBy, dontDisturbValue) {
         "setBy": setBy,
         "dontDisturb": dontDisturbValue
       })
-    }).then( response => {
-      console.log('toggle dont disturb ->', 'status code: ', response.status, 'success: ', response.ok)
-      resolve(response.ok) 
-    }) 
+    }).then(response => response.json())
+      .then(data => resolve(data[0])); 
   });  
 }
 

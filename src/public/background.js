@@ -47,15 +47,13 @@ chrome.runtime.onMessage.addListener(
       
       console.log('Valor do allowCapture definido para: ' + allowCapture + " via: " + setBy);
     } else if (req.field === "dontDisturb") {
-        // TODO: sync chrome config
         let setBy = req.setBy;
         let isDontDisturbActive = req.toggleDontDisturb;
 
         let userConfig = await putConfigurationDontDisturb(email, setBy, isDontDisturbActive);
-        console.log(userConfig, 'Config do chrome', getSyncConfig())
-
-        await getChromeConfig();
-        await setChromeConfig("xampson", true);        
+        
+        setSyncConfig("configs", JSON.stringify(userConfig));
+        console.log(await getSyncConfig())
         
         if(isDontDisturbActive) {
           chrome.tabs.onActivated.addListener(() => dynamicMute());  

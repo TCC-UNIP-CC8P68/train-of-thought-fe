@@ -80,34 +80,6 @@ async function getSyncConfig() {
   });
 }
 
-async function setChromeConfig(key, value) {
-  chrome.storage.sync.set({key, value}, function() {
-    let chromeConfig = await getChromeConfig();
-    console.log(chromeConfig);
-  });
-}
-
-function objectIsEmpty(object) {
-  return Object.keys(object).length === 0;
-}
-
-async function getChromeConfig() {
-  return new Promise((resolve, reject) => {
-    try {
-      chrome.storage.sync.get(function(result) {
-        if (objectIsEmpty(result)) {
-          console.log("Erro na getChromeConfig", result)
-          resolve(false);
-        } else {
-          resolve(result);
-        }
-      })
-    } catch (ex) {
-      reject(ex);
-    }
-  });
-}
-
 async function dynamicMute() {
   unmuteActive();
   muteTabs();
