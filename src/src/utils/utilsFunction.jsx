@@ -19,3 +19,8 @@ export function muteTabsOnOff() {
   let message = {field: "muteTabs"};
   chrome.runtime.sendMessage(message);
 }
+
+export function handleDashboard() {
+  let message = {field: "dashboard"};
+  chrome.runtime.sendMessage(message);
+}

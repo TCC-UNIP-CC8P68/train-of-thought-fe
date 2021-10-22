@@ -6,6 +6,7 @@ import { BsGear } from 'react-icons/bs';
 
 import './Header.scss';
 import Logo from '../Logo';
+import { handleDashboard } from '../../utils/utilsFunction';
 
 function Header() {
   const global = React.useContext(GlobalContext);
@@ -18,7 +19,7 @@ function Header() {
       <div className="btn-config">
         <span
           onClick={() => {
-            console.log('teste');
+            handleDashboard()
           }}
         >
           <BsGear />
