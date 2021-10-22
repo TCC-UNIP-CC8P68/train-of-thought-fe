@@ -1,0 +1,24 @@
+menu {
+  width: 200px;
+  height: 100%;
+  text-align: center;
+  background: var(--colorTertiary);
+  li a {
+    height: 45px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-right: 1px solid var(--color-white);
+    border-bottom: 1px solid var(--color-white);
+    cursor: pointer;
+    transition: ease 0.3s;
+    font-size: 16px;
+    text-transform: uppercase;
+    &:hover {
+      background: var(--color-dark-blue);
+      border-color: var(--colorSecondary);
+    }
+  }
+}

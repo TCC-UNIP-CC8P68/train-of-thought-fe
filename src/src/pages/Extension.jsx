@@ -1,35 +1,45 @@
-import React from "react";
+import React from 'react';
 
-import { GlobalContext } from "../contexts/GlobalContext";
-import SelectBar from "../components/SelectBar";
+import { GlobalContext } from '../contexts/GlobalContext';
+import SelectBar from '../components/SelectBar';
 
-import "../sass/Extension.scss";
-import SearchMode from "../patterns/SearchMode";
-import FocusMode from "../patterns/FocusMode";
+import '../sass/Extension.scss';
+import SearchMode from '../patterns/SearchMode';
+import FocusMode from '../patterns/FocusMode';
+import Header from '../components/Header';
 
 function Extension() {
   const global = React.useContext(GlobalContext);
   const btnSelect = [
     {
-      id: "sMode",
-      text: "search mode",
+      id: 'sMode',
+      text: 'Captura de Paginas',
     },
     {
-      id: "fMode",
-      text: "focus mode",
+      id: 'fMode',
+      text: 'Foco',
+    },
+    {
+      id: 'pMode',
+      text: 'Pomodoro',
     },
   ];
 
   return (
-    <>
-      <main className="container_extension">
+    <div className="body_popup">
+      <Header />
+      <main
+        className={`container_extension ${
+          global.nightMode ? 'night_mode' : ''
+        }`}
+      >
         <SelectBar buttons={btnSelect} />
-        <div className={`container ${global.nightMode ? "night_mode" : ""}`}>
+        <div className={`container`}>
           {global.typeMode === 0 && <SearchMode />}
           {global.typeMode === 1 && <FocusMode />}
         </div>
       </main>
-    </>
+    </div>
   );
 }
 
