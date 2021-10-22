@@ -1,0 +1,41 @@
+.body_options {
+  .body_content {
+    height: calc(100vh - 150px);
+    display: flex;
+    justify-content: flex-start;
+
+    main {
+      padding: 10px 15px;
+      width: 100%;
+      overflow: scroll;
+      overflow-y: hidden;
+
+      .block_options {
+        .div-block {
+          margin-top: 45px;
+          h2 {
+            width: 100%;
+            text-align: center;
+            border-bottom: 2px solid var(--colorSecondary);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+          }
+          &:first-child {
+            margin-top: 0px;
+          }
+        }
+      }
+    }
+  }
+  footer {
+    margin: 0px;
+    height: 50px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    padding-top: 15px;
+    background-color: var(--colorPrimary);
+  }
+}
