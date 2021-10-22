@@ -10,8 +10,7 @@ function App() {
   return (
     <>
       <GlobalStorege>
-        <Extension />
-         {/* <Options /> */}
+         { window.innerHeight === 25 ? <Extension /> : <Options /> }
       </GlobalStorege>
     </>
   );
