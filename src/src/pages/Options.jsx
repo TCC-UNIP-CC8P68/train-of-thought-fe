@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HeaderOptions from '../components/HeaderOptions';
 import MenuOptions from '../components/MenuOptions';
 import Dashboard from '../patterns/Dashboard';
 import LinksPg from '../patterns/LinksPg';
 import Profile from '../patterns/Profile';
 import SettingPg from '../patterns/SettingPg';
+
+import {getUserProfile, test} from '../utils/utilsFunction';
 
 import '../sass/Options.scss';
 
@@ -29,6 +31,10 @@ const Options = () => {
   ];
 
   const [pageOptions, setPageOptions] = useState('profile');
+
+  useEffect(async () => {
+    const profile = await getUserProfile();
+  }, []);
 
   return (
     <div className="body_options">
