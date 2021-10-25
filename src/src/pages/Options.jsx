@@ -6,7 +6,6 @@ import LinksPg from '../patterns/LinksPg';
 import Profile from '../patterns/Profile';
 import SettingPg from '../patterns/SettingPg';
 
-import { getUserProfileData } from '../utils/utilsChrome';
 import '../sass/Options.scss';
 
 const Options = () => {
@@ -30,11 +29,6 @@ const Options = () => {
   ];
 
   const [pageOptions, setPageOptions] = useState('profile');
-
-  useEffect(async () => {
-    const profileData = await getUserProfileData();
-    console.log(profileData);
-  }, []);
 
   return (
     <div className="body_options">
