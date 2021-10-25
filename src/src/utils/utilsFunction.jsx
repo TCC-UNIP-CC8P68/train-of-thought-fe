@@ -24,21 +24,3 @@ export function handleDashboard() {
   let message = {field: "dashboard"};
   chrome.runtime.sendMessage(message);
 }
-
-export function getUserProfile() {
-  chrome.identity.getAuthToken({
-    interactive: true
-  }, token => {
-    if (chrome.runtime.lastError) {
-      alert(chrome.runtime.lastError.message);
-      return;
-    }
-
-    const getUserData = new XMLHttpRequest();
-    getUserData.open('GET', 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + token);
-    getUserData.onload = function() {
-      console.log(getUserData.response);
-    };
-    getUserData.send();
-});
-}

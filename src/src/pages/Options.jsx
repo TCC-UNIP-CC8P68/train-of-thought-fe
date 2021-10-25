@@ -6,8 +6,7 @@ import LinksPg from '../patterns/LinksPg';
 import Profile from '../patterns/Profile';
 import SettingPg from '../patterns/SettingPg';
 
-import {getUserProfile, test} from '../utils/utilsFunction';
-
+import { getUserProfileData } from '../utils/utilsChrome';
 import '../sass/Options.scss';
 
 const Options = () => {
@@ -33,7 +32,8 @@ const Options = () => {
   const [pageOptions, setPageOptions] = useState('profile');
 
   useEffect(async () => {
-    const profile = await getUserProfile();
+    const profileData = await getUserProfileData();
+    console.log(profileData);
   }, []);
 
   return (
