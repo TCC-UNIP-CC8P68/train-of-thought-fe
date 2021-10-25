@@ -10,7 +10,16 @@
     height: 60px;
   }
 
-  .user_content .user i {
+  .user_content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user_content h1 {
+    margin-right: 25px;
+  }
+
+  .user_content .user img {
     height: 60px;
     width: 60px;
     background-color: #fff;
