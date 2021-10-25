@@ -3,12 +3,12 @@ import React from 'react';
 import { GlobalContext } from '../contexts/GlobalContext';
 import SelectBar from '../components/SelectBar';
 
-import '../sass/Extension.scss';
+import '../sass/Popup.scss';
 import SearchMode from '../patterns/SearchMode';
 import FocusMode from '../patterns/FocusMode';
 import Header from '../components/Header';
 
-function Extension() {
+function Popup() {
   const global = React.useContext(GlobalContext);
   const btnSelect = [
     {
@@ -43,4 +43,4 @@ function Extension() {
   );
 }
 
-export default Extension;
+export default Popup;
