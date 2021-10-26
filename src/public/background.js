@@ -42,13 +42,24 @@ chrome.runtime.onMessage.addListener(
       let setBy = req.setBy;
       allowCapture = req.allowCapture;
       putConfigurationAllowCapture(email, setBy, allowCapture).then(function(res) {
-        console.log(res)
         setSyncConfig("configs", JSON.stringify(res));
       });
       
       console.log('Valor do allowCapture definido para: ' + allowCapture + " via: " + setBy);
-    } else if (req.field == "muteTabs") {
-        muteTabs();
+    } else if (req.field === "dontDisturb") {
+        let setBy = req.setBy;
+        let isDontDisturbActive = req.toggleDontDisturb;
+
+        let userConfig = await putConfigurationDontDisturb(email, setBy, isDontDisturbActive);
+        
+        setSyncConfig("configs", JSON.stringify(userConfig));
+        console.log(await getSyncConfig())
+        
+        if(isDontDisturbActive) {
+          chrome.tabs.onActivated.addListener(() => dynamicMute());  
+        }
+
+        dontDisturb(isDontDisturbActive);
     } else if (req.field === "dashboard") {
       chrome.tabs.create({
         url: 'popup.html'

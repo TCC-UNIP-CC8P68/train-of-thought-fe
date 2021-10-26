@@ -90,6 +90,24 @@ async function putConfigurationAllowCapture(email, setBy, allowCapture) {
   });  
 }
 
+async function putConfigurationDontDisturb(email, setBy, dontDisturbValue) {
+  return new Promise ((resolve, reject) => {
+    fetch('http://localhost:8085/configuration/dontdisturb', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "email": email, 
+        "setBy": setBy,
+        "dontDisturb": dontDisturbValue
+      })
+    }).then(response => response.json())
+      .then(data => resolve(data[0])); 
+  });  
+}
+
 async function getConfiguration(email) {
   return new Promise((resolve, reject) => {
     fetch('http://localhost:8085/configuration?email='+email, {
