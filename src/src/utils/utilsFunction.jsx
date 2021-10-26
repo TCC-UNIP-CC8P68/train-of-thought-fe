@@ -21,3 +21,8 @@ export function toggleDontDisturb() {
   let message = {field: "dontDisturb", setBy: "popup", toggleDontDisturb: dontDisturb};
   chrome.runtime.sendMessage(message);
 }
+
+export function handleDashboard() {
+  let message = {field: "dashboard"};
+  chrome.runtime.sendMessage(message);
+}

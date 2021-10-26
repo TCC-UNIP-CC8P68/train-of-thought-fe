@@ -16,3 +16,13 @@
     color: var(--color-white);
   }
 }
+
+.night_mode {
+  .buttonCustom {
+    border: 2px solid var(--color-white);
+    color: var(--color-white);
+    &:hover {
+      border: 2px solid var(--colorPrimary);
+    }
+  }
+}

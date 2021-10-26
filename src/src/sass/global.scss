@@ -6,7 +6,8 @@ ul,
 ul,
 li,
 p,
-a {
+a,
+menu {
   margin: 0px;
   padding: 0px;
 }
@@ -67,12 +68,11 @@ input {
 
 :root {
   --fundo: #faf6ed;
-  --xcolorPrimary: #5965e0;
-  --colorPrimary: #4508ad;
+  --colorPrimary: #2b46bb;
   --colorSecondary: #222;
-  --color-purple: #896dff;
-  --color-light-purple: #d0c4ff;
-  --color-dark-purple: #5c45a9;
+  --colorTertiary: #5965e0;
+  --color-light-purple: #c0bdff;
+  --color-dark-blue: #00157a;
   --color-grey: #4d4c59;
   --color-dark-grey: #333;
   --color-light-grey: #979797;
@@ -89,10 +89,15 @@ body {
 }
 
 body {
-  width: 34rem;
   .body_popup {
+    min-width: 34rem;
     width: 100%;
     display: block;
     position: relative;
+  }
+  .night_mode {
+    h1 {
+      color: var(--color-white);
+    }
   }
 }

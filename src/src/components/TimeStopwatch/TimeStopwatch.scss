@@ -2,15 +2,16 @@
   .contdownContainer {
     display: flex;
     align-items: center;
-    font-family: Montserrat, sans-serif;
     font-weight: 600;
     color: var(--color-white);
+    width: 200px;
+    margin: 0 auto;
     & > div {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: space-evenly;
-      background: var(--color-purple);
+      background: var(--colorTertiary);
       box-shadow: 0 0 68px rgba(0, 0, 0, 0.05);
       border-radius: 5px;
       font-size: 8.5rem;
@@ -27,10 +28,9 @@
     }
 
     span {
-      font-size: 6.25rem;
-      margin: 0 0.5rem;
+      font-size: 3.25rem;
       &.column_divider {
-        color: var(--color-purple);
+        color: var(--colorTertiary);
       }
     }
   }

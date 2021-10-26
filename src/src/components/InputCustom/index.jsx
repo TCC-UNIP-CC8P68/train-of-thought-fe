@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import './InputCustom.scss';
 
@@ -13,7 +13,7 @@ function InputCustom({
   mask,
 }) {
   function handleValue(e) {
-    setValue(mask(e.target.value));
+    setValue(e.target.value);
   }
 
   function handleValueMask(e) {

@@ -60,7 +60,11 @@ chrome.runtime.onMessage.addListener(
         }
 
         dontDisturb(isDontDisturbActive);
-    }  
+    } else if (req.field === "dashboard") {
+      chrome.tabs.create({
+        url: 'popup.html'
+      });    
+    } 
   }
 );
 

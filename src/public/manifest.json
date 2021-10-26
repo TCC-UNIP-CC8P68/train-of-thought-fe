@@ -18,5 +18,12 @@
   ],
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "oauth2": {
+    "client_id": "178992210331-7gsu24a6r8oo8erbddafu38pqqng8bpn.apps.googleusercontent.com",
+    "scopes": [
+        "profile email",
+        "https://www.googleapis.com/auth/contacts"
+    ]
+}
 }
