@@ -80,16 +80,44 @@ async function getSyncConfig() {
   });
 }
 
+async function dynamicMute() {
+  unmuteActive();
+  muteTabs();
+}
+
+async function dontDisturb(isMuted) {
+  isMuted ? muteTabs() : unmuteTabs();
+}
+
 async function muteTabs() {
-  let audibleTabs = await getTabs( { active: false, audible: true});
-  
+  let audibleTabs = await getTabs({ active: false, audible: true });
+   
   if(audibleTabs.length > 0) {
     audibleTabs.map(tabInfo => {
       let tabId = tabInfo.id;
-      let isMuted = !tabInfo.mutedInfo.muted;
-      
-      chrome.tabs.update(tabId, { muted: isMuted });
-      console.log((isMuted) ? 'Abas mutadas' : 'Abas desmutadas');
+      chrome.tabs.update(tabId, { muted: true });
     });
-  }
+  } 
+}
+
+async function unmuteActive() {
+  let mutedTabs = await getTabs({ active: true, muted: true });
+  
+  if(mutedTabs.length > 0) {
+    mutedTabs.map(tabInfo => {
+      let tabId = tabInfo.id;
+      chrome.tabs.update(tabId, { muted: false });
+    });
+  } 
+}
+
+async function unmuteTabs() {
+  let mutedTabs = await getTabs({ muted: true });
+  
+  if(mutedTabs.length > 0) {
+    mutedTabs.map(tabInfo => {
+      let tabId = tabInfo.id;
+      chrome.tabs.update(tabId, { muted: false });
+    });
+  } 
 }

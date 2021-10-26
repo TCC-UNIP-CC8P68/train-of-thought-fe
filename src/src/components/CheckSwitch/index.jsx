@@ -3,7 +3,6 @@ import React from 'react';
 import './CheckSwitch.scss';
 
 function CheckSwitch({ classInput, id, label, value, checked, setChecked, onClick }) {
-  console.log(onClick);
   return (
     <div className="check-switch">
       <input
