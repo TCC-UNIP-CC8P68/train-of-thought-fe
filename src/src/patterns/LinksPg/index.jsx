@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './LinksPg.scss';
 
-const LinksPg = () => {
+import { getUserUrlCaptures } from '../../utils/utilsApi';
 
+const LinksPg = () => {
+  useEffect(() => {
+    getUserUrlCaptures(10, 0);
+  }, []);
+  
   return (
     <div className="block_options">
       <div className="div-block">
