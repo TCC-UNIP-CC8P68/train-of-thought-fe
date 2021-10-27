@@ -11,7 +11,8 @@ const LinksPg = () => {
     setCaptures(userCaptures);
   }, []);
   
-  console.log(captures);
+  console.log(captures)
+
   return (
     <div className="block_options">
       <div className="div-block">
