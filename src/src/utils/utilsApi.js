@@ -7,6 +7,6 @@ export async function getUserUrlCaptures(limit, offset){
 
     return fetch(url)
     .then(response => response.json())
-    .then(responseData => console.log(responseData))
+    .then(responseData => responseData)
     .catch(error => console.log(error));
 }
