@@ -25,3 +25,16 @@ export async function getUserProfileData() {
   .then(responseData => responseData)
   .catch(error => console.log(error));
 }
+
+export function getUserEmail() {
+  return new Promise((resolve, reject) => {
+    try {
+      chrome.identity.getProfileUserInfo(async function(info) { 
+        resolve(info.email)
+      })
+    }
+    catch (ex) {
+      reject(ex);
+    }
+  });
+}
