@@ -4,14 +4,14 @@ import './LinksPg.scss';
 import { getUserUrlCaptures } from '../../utils/utilsApi';
 
 const LinksPg = () => {
+  /*
   const [captures, setCaptures] = useState([]);
 
   useEffect(async () => {
     const userCaptures = await getUserUrlCaptures(10, 0);
     setCaptures(userCaptures);
   }, []);
-  
-  console.log(captures)
+  */
 
   return (
     <div className="block_options">
