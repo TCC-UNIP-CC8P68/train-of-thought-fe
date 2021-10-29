@@ -3,7 +3,6 @@ import HeaderOptions from '../components/HeaderOptions';
 import MenuOptions from '../components/MenuOptions';
 import Dashboard from '../patterns/Dashboard';
 import LinksPg from '../patterns/LinksPg';
-import Profile from '../patterns/Profile';
 import SettingPg from '../patterns/SettingPg';
 
 import '../sass/Options.scss';
@@ -17,10 +16,6 @@ const Options = () => {
     {
       id: 'links',
       text: 'Links',
-    },
-    {
-      id: 'profile',
-      text: 'Profile',
     },
     {
       id: 'settings',
@@ -42,7 +37,6 @@ const Options = () => {
         <main>          
           {pageOptions === 'dashboard' && <Dashboard />}
           {pageOptions === 'links' && <LinksPg />}
-          {pageOptions === 'profile' && <Profile />}
           {pageOptions === 'settings' && <SettingPg />}
         </main>
       </div>
