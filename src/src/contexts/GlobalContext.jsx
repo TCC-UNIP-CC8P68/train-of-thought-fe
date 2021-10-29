@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export const GlobalContext = React.createContext();
 
-export const GlobalStorege = ({ children }) => {
+export const GlobalStorage = ({ children }) => {
   const [nightMode, setNightMode] = React.useState(false);
   const [typeMode, setTypeMode] = React.useState(0);
   const [onConfig, setOnConfig] = React.useState(false);

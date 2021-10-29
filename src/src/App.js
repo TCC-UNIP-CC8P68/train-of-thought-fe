@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GlobalStorege } from './contexts/GlobalContext';
+import { GlobalStorage } from './contexts/GlobalContext';
 import Options from './pages/Options';
 import Popup from './pages/Popup';
 
@@ -9,9 +9,9 @@ import './sass/global.scss';
 function App() {
   return (
     <>
-      <GlobalStorege>
+      <GlobalStorage>
          { window.innerHeight === 25 ? <Popup /> : <Options /> }
-      </GlobalStorege>
+      </GlobalStorage>
     </>
   );
 }
