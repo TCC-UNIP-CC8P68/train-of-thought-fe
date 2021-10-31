@@ -26,9 +26,9 @@ const LinksPg = () => {
                   <b>Site visitado:</b>
                 </div>
                 <div>
-                  <a href={capture.capturedUrl}>
-                  {capture.capturedUrl.substring(0,100)} 
-                  {capture.capturedUrl.length > 100 && ' ...'} 
+                  <a target="_blank" href={capture.capturedUrl}>
+                    {capture.capturedUrl.substring(0,100)} 
+                    {capture.capturedUrl.length > 100 && ' ...'} 
                   </a>
                 </div>
                 <div>Visitado no dia: 26/10/2021</div>
