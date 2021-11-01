@@ -23,7 +23,7 @@ const Options = () => {
     },
   ];
 
-  const [pageOptions, setPageOptions] = useState('profile');
+  const [pageOptions, setPageOptions] = useState('dashboard');
 
   return (
     <div className="body_options">
