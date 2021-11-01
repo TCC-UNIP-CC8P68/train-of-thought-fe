@@ -44,7 +44,7 @@ const SettingPg = () => {
           <CheckSwitch
             id="allow_capture"
             label="Não pertube"
-            value="capture"
+            value="mute"
             checked={global.allowMute}
             setChecked={global.setAllowMute}
             onClick={() => {toggleDontDisturb()}}
