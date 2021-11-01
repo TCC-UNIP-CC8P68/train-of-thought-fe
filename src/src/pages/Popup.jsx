@@ -19,10 +19,6 @@ function Popup() {
       id: 'fMode',
       text: 'Foco',
     },
-    {
-      id: 'pMode',
-      text: 'Pomodoro',
-    },
   ];
 
   return (
