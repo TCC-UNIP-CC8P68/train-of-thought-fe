@@ -14,11 +14,7 @@ function Popup() {
     {
       id: 'sMode',
       text: 'Captura de Paginas',
-    },
-    {
-      id: 'fMode',
-      text: 'Foco',
-    },
+    }
   ];
 
   return (
