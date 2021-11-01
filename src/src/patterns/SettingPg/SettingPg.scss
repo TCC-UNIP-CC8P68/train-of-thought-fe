@@ -1,0 +1,17 @@
+.block_options {
+  .div-block {
+    height: auto;
+    .divSett {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .saveConfig {
+      .buttonCustom {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+}
