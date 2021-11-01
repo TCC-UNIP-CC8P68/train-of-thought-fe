@@ -47,7 +47,7 @@ const LinksPg = () => {
             })}             
           </ul>
         </div>
-        <button className="pagination-button" onClick={loadCaptures}>Carregar mais posts</button>
+        <button className="pagination-button" onClick={loadCaptures}>More captures</button>
       </div>
     </div>
   );
