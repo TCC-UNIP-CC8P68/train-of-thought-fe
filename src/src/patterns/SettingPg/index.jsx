@@ -52,16 +52,6 @@ const SettingPg = () => {
         </div>
       </div>
       <div className="div-block">
-        <h2> Foco </h2>
-        <div className="div-block">
-          <InputCustom
-          
-            id="timeBox"
-            label="Tempo"
-            value={timeFoco}
-            setValue={setTimeFoco}
-          />
-        </div>
         <div className="saveConfig">
           <ButtonCustom> Salvar </ButtonCustom>
         </div>
