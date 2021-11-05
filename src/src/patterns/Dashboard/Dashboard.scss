@@ -1,5 +1,19 @@
-.word-cloud {
-    margin: 0 auto;
-    width: 70%;
-    max-height: 400px;
+.dashboard-block {
+	height: auto !important;
+	margin-bottom: 40px;
+
+	h3 {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .word-cloud {
+		margin: 0 auto;
+		width: 70%;
+		max-height: 400px;
+	}
+
+	ul li span {
+		margin-left: 5px;
+	}
 }
