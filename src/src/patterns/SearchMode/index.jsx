@@ -32,8 +32,8 @@ function SearchMode() {
           <InputCustom
             id="timeUser"
             label="Tempo de Captura"
-            value={time}
-            setValue={setTime}
+            value={global.timeoutValue}
+            setValue={global.setTime}
             refInput={refTime}
             mask={maskTime}
           />
